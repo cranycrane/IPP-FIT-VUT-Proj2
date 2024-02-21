@@ -21,31 +21,21 @@ abstract class RelationalInstruction extends FrameAwareInstruction {
      * @return array{Variable,mixed,mixed}
      */
     protected function getCheckedArgs(): array {
+        $this->checkArgsCount(3);
+
         $args = $this->getArgs();
         
         $variable = $this->getDestVar($args[0]);
-        $symbArg1 = $args[1];
-        $symbArg2 = $args[2];
+        $symbArg1 = $this->getArgValue($args[1]);
+        $symbArg2 = $this->getArgValue($args[2]);
 
-        if (count($args) != 3) {
-            throw new ArgumentCountError("Nesprávný počet argumentů");
-        }
-
-        if (!($symbArg1 instanceof VarArgument || $symbArg1 instanceof ConstArgument)) {
-            throw new InvalidArgumentException("Druhy argument musi byt promenna nebo literal");
-        }
-        if (!($symbArg2 instanceof VarArgument || $symbArg2 instanceof ConstArgument)) {
-            throw new InvalidArgumentException("Treti argument musi byt promenna nebo literal");            
-        }
     
-        if ($symbArg1->getDataType() != $symbArg2->getDataType()) {
+        if ($symbArg1->getType() != $symbArg2->getType()) {
             throw new WrongOperandTypesException("Datove typy operandu se lisi");
         }
 
-        $value2 = $this->getValue($args[1]);
-        $value3 = $this->getValue($args[2]);
 
-        return [$variable, $value2, $value3];
+        return [$variable, $symbArg1->getValue(), $symbArg2->getValue()];
     }
 
     private function getValue(Argument $argument): mixed {
