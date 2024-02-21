@@ -7,6 +7,7 @@ enum DataType: string {
     case String = 'string';
     case Nil = 'nil';
     case Bool = 'bool';
-    case Var = 'var'; // zrejme odstranit
+    case Var = 'var';
     case Float = 'float';
+    case Label = 'label';
 }

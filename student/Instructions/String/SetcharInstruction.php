@@ -1,6 +1,6 @@
 <?php
 
-namespace IPP\Student\Instructions;
+namespace IPP\Student\Instructions\String;
 
 use ArgumentCountError;
 use InvalidArgumentException;
@@ -11,6 +11,7 @@ use IPP\Student\Exception\StringException;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\Exception\WrongOperandTypesException;
 use IPP\Student\FrameManager;
+use IPP\Student\Instructions\FrameAwareInstruction;
 use IPP\Student\Variable;
 
 class SetcharInstruction extends FrameAwareInstruction {

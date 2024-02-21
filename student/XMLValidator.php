@@ -83,12 +83,6 @@ class XMLValidator {
             if ($attributes->getNamedItem('type') == null) {
                 throw new UnexpectedXMLStructureException("Nenalezen atribut 'type' u arg");
             }
-
-            $type = $arg->getAttribute('type');
-            $matchingTypeIndex = array_search($type, array_column(DataType::cases(), "value"));
-            if ($matchingTypeIndex === false) {
-                throw new UnexpectedXMLStructureException("Uvedeny datovy typ {$type} neexistuje");
-            }
         }
     }
 }

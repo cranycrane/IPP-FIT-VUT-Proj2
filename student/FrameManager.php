@@ -27,6 +27,9 @@ class FrameManager {
     }
 
     public function pushFrameStack() {
+        if (!isset($this->tempFrame)) {
+            throw new FrameAccessException("Frame not created");
+        }
         $this->localFrameStack->push($this->tempFrame);
     }
 

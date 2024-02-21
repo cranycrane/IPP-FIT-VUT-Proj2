@@ -25,8 +25,11 @@ class TypedValue {
         else if ($dataType == DataType::Nil) {
             $this->value = null;
         }
+        else if ($dataType == DataType::Bool) {
+            $this->value = (bool) $value;
+        }
         else {
-            throw new WrongOperandTypesException("Neocekavany datovy typ");
+            throw new WrongOperandTypesException("Neocekavany datovy typ " . $dataType->name);
         }
     }
 

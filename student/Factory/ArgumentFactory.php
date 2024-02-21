@@ -13,13 +13,11 @@ use IPP\Student\DataType;
 class ArgumentFactory {
     
     public static function createArg(string $type, $value) {
-        $matchingTypeIndex = array_search($type, array_column(DataType::cases(), "value"));
-        if ($matchingTypeIndex === false) {
-            throw new UnexpectedArgumentException("Uvedeny datovy typ {$type} neexistuje");
-        }
-
-        if (\in_array($type, ['string', 'int', 'nil', 'bool', 'float'])) {
+        if (\in_array($type, ['int', 'nil', 'bool', 'float'])) {
             return new ConstArgument(DataType::from($type), $value);
+        }
+        else if ($type == 'string') {
+            return new ConstArgument(DataType::String, self::convertEscapeSeq($value));
         }
         else if ($type == 'var') {
             return new VarArgument($value);
@@ -30,16 +28,16 @@ class ArgumentFactory {
         else if ($type == 'type') {
             return new TypeArgument($value);
         }
-
     }
 
-    public static function isValidOpcode(string $opcode) {
-        $className = self::getClassNameForOpcode($opcode);
-        return class_exists($className);
+    protected static function convertEscapeSeq($string) {
+        return preg_replace_callback('/\\\\(\d{1,3})/', function ($matches) {
+            $asciiValue = $matches[1];
+            if ($asciiValue >= 0 && $asciiValue <= 999) {
+                return chr($asciiValue);
+            }
+            return $matches[0];
+        }, $string);
     }
 
-    private static function getClassNameForOpcode($opcode) {
-        // Předpokládejme, že $opcode je vždy velkými písmeny
-        return "IPP\\Student\\Instructions\\" . ucfirst(strtolower($opcode)) . "Instruction";
-    }
 }

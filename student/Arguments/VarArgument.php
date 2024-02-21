@@ -31,7 +31,7 @@ class VarArgument extends Argument {
 
     protected function validate() {
         if (!\in_array($this->frame, ['LF', 'GF', 'TF'])) {
-            throw new ArgumentException("Neznamy nazev ramce");
+            throw new ArgumentException("Neznamy nazev ramce {$this->frame}");
         }
         
     }

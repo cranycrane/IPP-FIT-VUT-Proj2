@@ -1,6 +1,6 @@
 <?php
 
-namespace IPP\Student\Instructions;
+namespace IPP\Student\Instructions\Relational;
 
 use ArgumentCountError;
 use InvalidArgumentException;
@@ -10,6 +10,7 @@ use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Exception\WrongOperandTypesException;
 use IPP\Student\FrameManager;
+use IPP\Student\Instructions\FrameAwareInstruction;
 
 abstract class RelationalInstruction extends FrameAwareInstruction {
 

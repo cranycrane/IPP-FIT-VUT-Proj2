@@ -2,9 +2,12 @@
 
 namespace IPP\Student\Instructions;
 
+use ArgumentCountError;
 use IPP\Student\Exception\ArgumentDoesntExistException;
 use IPP\Student\Arguments\Argument;
+use IPP\Student\Arguments\LabelArgument;
 use IPP\Student\Arguments\VarArgument;
+use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\ExecutionContext;
 
 abstract class Instruction {
@@ -47,4 +50,20 @@ abstract class Instruction {
         return $this->args;
     }
 
+    protected function checkArgsCount(int $argCount) {
+        if (count($this->getArgs()) != $argCount) {
+            throw new ArgumentCountError("Neocekavany pocet argumentu");
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabelName() {
+        $labelName = $this->getArg(0);
+        if (!$labelName instanceof LabelArgument) {
+            throw new UnexpectedArgumentException("Neocekavany typ argumentu");
+        }
+        return $labelName->getValue();
+    }
 }

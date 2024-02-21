@@ -1,6 +1,6 @@
 <?php
 
-namespace IPP\Student\Instructions;
+namespace IPP\Student\Instructions\Relational;
 
 use IPP\Student\DataType;
 

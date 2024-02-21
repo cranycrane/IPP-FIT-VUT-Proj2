@@ -12,6 +12,7 @@ use IPP\Student\LocalFrameStack;
 use IPP\Student\Frame\GlobalFrame;
 use IPP\Student\Instructions\CallInstruction;
 use IPP\Student\Instructions\ControlInstruction;
+use IPP\Student\Instructions\FlowControl\LabelInstruction;
 use IPP\Student\Instructions\Instruction;
 use IPP\Student\Instructions\ReturnInstraction;
 use IPP\Student\Instructions\ReturnInstruction;
@@ -22,11 +23,8 @@ class Interpreter extends AbstractInterpreter
 
     protected function init(): void {
         parent::init();
-        $frameManager = new FrameManager();
-        $labelManager = new LabelManager();
-        $callStack = new CallStack();
-        $dataStack = new DataStack();
-        $this->execContext = new ExecutionContext($frameManager, $this->stdout, $dataStack, $this->input, $labelManager, $callStack);
+
+        $this->execContext = new ExecutionContext($this->stdout, $this->input, $this->stderr);
     }
 
     public function execute(): int
@@ -37,10 +35,12 @@ class Interpreter extends AbstractInterpreter
 
         $instructions = $this->loadInstructions($dom);
 
+        $this->registerLabels($instructions);
+
         $instructionsCount = count($instructions); // Předpokládejme, že $instructions je pole všech instrukcí
-        
         while ($this->execContext->instructionPointer < $instructionsCount) {
             $instruction = $instructions[$this->execContext->instructionPointer];
+            //echo("\n\nExecuting ". get_class($instruction) . "\n\n");
             $instruction->execute($this->execContext);
             $this->execContext->instructionPointer++;
         }
@@ -66,6 +66,21 @@ class Interpreter extends AbstractInterpreter
             $this->stderr->writeString($exception->getMessage());
             exit(53); 
         }
+    }
+
+    private function registerLabels($instructions) {
+        foreach ($instructions as $instruction) {
+            if ($instruction instanceof LabelInstruction) {
+                $this->execContext->labelManager->registerLabel($instruction->getLabelName(), $instruction->getOrder());
+            }
+        }
+    }
+
+    private function printInstructions($instructions) {
+        foreach ($instructions as $instruction) {
+            echo(\get_class($instruction) . ", position: " . $instruction->getOrder() . "\n");
+        }
+        exit(0);
     }
 
 }

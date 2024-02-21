@@ -46,11 +46,10 @@ class XMLInstructionLoader {
         foreach ($args as $arg) {
             if ($arg instanceof DOMElement && strpos($arg->nodeName, 'arg') === 0) {
                 $argType = $arg->getAttribute('type');
-                $argValue = $arg->nodeValue;
+                $argValue = trim($arg->nodeValue);
                 $argArray[] = ArgumentFactory::createArg($argType, $argValue);
             }
         }
         return $argArray;
     }
-    
 }

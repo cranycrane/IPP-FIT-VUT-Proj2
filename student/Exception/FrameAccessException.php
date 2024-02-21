@@ -2,5 +2,12 @@
 
 namespace IPP\Student\Exception;
 
-class FrameAccessException extends \Exception {
+use IPP\Core\Exception\IPPException;
+use IPP\Core\ReturnCode;
+use Throwable;
+
+class FrameAccessException extends IPPException {
+    public function __construct(string $message = "Chyba prace s ramcem", ?Throwable $previous = null) {
+        parent::__construct($message, ReturnCode::FRAME_ACCESS_ERROR, $previous, false);
+    }
 }

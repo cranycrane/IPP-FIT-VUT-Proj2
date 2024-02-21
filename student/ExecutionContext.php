@@ -11,24 +11,27 @@ class ExecutionContext {
 
     public FrameManager $frameManager;
 
-    public OutputWriter $outputWriter;
+    public OutputWriter $stdout;
+
+    public OutputWriter $stderr;
 
     public DataStack $dataStack;
 
-    public InputReader $inputReader;
+    public InputReader $stdin;
 
     public LabelManager $labelManager;
 
     public CallStack $callStack;
 
-    public function __construct(FrameManager $frameManager, OutputWriter $outputWriter, DataStack $dataStack, 
-    InputReader $inputReader, LabelManager $labelManager, CallStack $callStack) {
-        $this->frameManager = $frameManager;
-        $this->outputWriter = $outputWriter;
-        $this->dataStack = $dataStack;
-        $this->inputReader = $inputReader;
-        $this->labelManager = $labelManager;
-        $this->callStack = $callStack;
+    public function __construct(OutputWriter $stdout,  InputReader $stdin, OutputWriter $stderr) {
+        $this->frameManager = new FrameManager();
+        $this->labelManager = new LabelManager();
+        $this->callStack = new CallStack();
+        $this->dataStack = new DataStack();
+        $this->stdout = $stdout;
+        $this->stdin = $stdin;
+        $this->stderr = $stderr;
+        
         $this->instructionPointer = 0;
     }
 }

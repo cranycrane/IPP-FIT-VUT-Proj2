@@ -1,6 +1,6 @@
 <?php
 
-namespace IPP\Student\Instructions;
+namespace IPP\Student\Instructions\String;
 
 use ArgumentCountError;
 use InvalidArgumentException;
@@ -9,6 +9,7 @@ use IPP\Student\Arguments\VarArgument;
 use IPP\Student\DataType;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\FrameManager;
+use IPP\Student\Instructions\FrameAwareInstruction;
 use IPP\Student\Variable;
 
 class StrlenInstruction extends FrameAwareInstruction {
