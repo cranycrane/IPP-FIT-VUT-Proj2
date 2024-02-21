@@ -6,6 +6,9 @@ use IPP\Student\Exception\MissingValueException;
 use IPP\Student\TypedValue;
 
 class DataStack {
+    /**
+     * @var TypedValue[] $stack 
+     */
     private array $stack = [];
 
     public function push(TypedValue $value): void {

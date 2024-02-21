@@ -11,12 +11,8 @@ use IPP\Student\LabelManager;
 
 class LabelInstruction extends Instruction {
     
-    private LabelManager $labelManager;
-
-    protected function executeSpecific() {
+    protected function executeSpecific(): void {
         [$labelName] = $this->getCheckedArgs();
-
-        //$this->labelManager->registerLabel($labelName, $this->getOrder());
     }
 
     protected function getCheckedArgs(): array {
@@ -26,8 +22,8 @@ class LabelInstruction extends Instruction {
         return [$labelName];
     }
 
-    protected function setDependency(ExecutionContext $execContext) {
-        $this->labelManager = $execContext->labelManager;
+    protected function setDependency(ExecutionContext $execContext): void {
+        
     }
 
 }

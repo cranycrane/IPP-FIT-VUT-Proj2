@@ -48,7 +48,7 @@ class Interpreter extends AbstractInterpreter
         exit(0);
     }
 
-    private function validateXML(DOMDocument $dom) {
+    private function validateXML(DOMDocument $dom): void {
         $xmlValidator = new XMLValidator($dom);
         try {
             $xmlValidator->validateStructure();
@@ -58,7 +58,10 @@ class Interpreter extends AbstractInterpreter
         }
     }
 
-    private function loadInstructions(DOMDocument $dom) {
+    /**
+     * @return array<int,Instruction>
+     */
+    private function loadInstructions(DOMDocument $dom): array {
         $instructionLoader = new XMLInstructionLoader($dom);
         try {
             return $instructionLoader->loadInstructions();
@@ -68,7 +71,10 @@ class Interpreter extends AbstractInterpreter
         }
     }
 
-    private function registerLabels($instructions) {
+    /**
+     * @param Instruction[] $instructions
+     */
+    private function registerLabels(array $instructions): void {
         foreach ($instructions as $instruction) {
             if ($instruction instanceof LabelInstruction) {
                 $this->execContext->labelManager->registerLabel($instruction->getLabelName(), $instruction->getOrder());
@@ -76,7 +82,10 @@ class Interpreter extends AbstractInterpreter
         }
     }
 
-    private function printInstructions($instructions) {
+    /**
+     * @param Instruction[] $instructions
+     */
+    private function printInstructions(array $instructions): void {
         foreach ($instructions as $instruction) {
             echo(\get_class($instruction) . ", position: " . $instruction->getOrder() . "\n");
         }

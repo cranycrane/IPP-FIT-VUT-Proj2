@@ -12,7 +12,7 @@ use IPP\Student\LabelManager;
 
 class DprintInstruction extends WriteInstruction {
 
-    public function setDependency(ExecutionContext $execContext) {
+    public function setDependency(ExecutionContext $execContext): void {
         parent::setDependency($execContext);
         $this->outputWriter = $execContext->stderr;
     }

@@ -3,12 +3,8 @@
 namespace IPP\Student\Instructions\String;
 
 use ArgumentCountError;
-use InvalidArgumentException;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
+use IPP\Student\TypedValue;
 use IPP\Student\DataType;
-use IPP\Student\Exception\UnexpectedArgumentException;
-use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
 use IPP\Student\Variable;
 
@@ -22,6 +18,9 @@ class StrlenInstruction extends FrameAwareInstruction {
         $variable->setValue($result, DataType::Int);
     }
 
+    /**
+     * @return array{Variable,TypedValue}
+     */
     protected function getCheckedArgs(): array {
         $args = $this->getArgs();
 

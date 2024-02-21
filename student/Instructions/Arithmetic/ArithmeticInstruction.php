@@ -3,13 +3,12 @@
 namespace IPP\Student\Instructions\Arithmetic;
 
 use ArgumentCountError;
-use InvalidArgumentException;
 use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
+use IPP\Student\Arguments\Argument;
 use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
-use IPP\Student\Exception\WrongOperandTypesException;
-use IPP\Student\FrameManager;
+use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
 
 abstract class ArithmeticInstruction extends FrameAwareInstruction {
@@ -39,18 +38,15 @@ abstract class ArithmeticInstruction extends FrameAwareInstruction {
         return [$variable, $value2, $value3];
     }
 
-    private function getValue($argument) {
+    private function getValue(Argument $argument): int {
         if ($argument instanceof VarArgument) {
             $variable = $this->frameManager->getVariable($argument->getFrameName(), $argument->getName());
-            
             if ($variable->getType() != DataType::Int) {
                 throw new ArgumentException("Argument musi byt typu int");    
             }
-            
             $varValue = $variable->getValue();
             return $varValue;
         }
-
 
         if ($argument instanceof ConstArgument && $argument->getDataType() == DataType::Int) {
             return $argument->getValue();

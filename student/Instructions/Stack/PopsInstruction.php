@@ -3,11 +3,7 @@
 namespace IPP\Student\Instructions\Stack;
 
 use ArgumentCountError;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\Exception\ArgumentException;
-use IPP\Student\Instructions\FrameAwareInterface;
-use IPP\Student\Interface\FrameAccess;
+use IPP\Student\Variable;
 
 class PopsInstruction extends StackInstruction {
 

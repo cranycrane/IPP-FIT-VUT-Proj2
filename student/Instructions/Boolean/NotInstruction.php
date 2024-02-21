@@ -3,9 +3,7 @@
 namespace IPP\Student\Instructions\Boolean;
 
 use ArgumentCountError;
-use InvalidArgumentException;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
+use IPP\Student\Variable;
 use IPP\Student\DataType;
 
 class NotInstruction extends BoolInstruction {
@@ -29,6 +27,6 @@ class NotInstruction extends BoolInstruction {
 
         $value = $this->getValue($args[1]);
 
-        return [$variable, $value];
+        return [$variable, $value, null];
     }
 }

@@ -12,7 +12,7 @@ use IPP\Student\LabelManager;
 
 class ExitInstruction extends FrameAwareInstruction {
     
-    protected function executeSpecific() {
+    protected function executeSpecific(): void {
         [$exitValue] = $this->getCheckedArgs();
         exit($exitValue);
     }
@@ -22,7 +22,7 @@ class ExitInstruction extends FrameAwareInstruction {
 
         $value = $this->getArgValue($this->getArg(0));
 
-        if ($value < 0 || $value > 9) {
+        if ($value->getValue() < 0 || $value->getValue() > 9) {
             throw new ArgumentException();
         }
 

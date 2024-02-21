@@ -19,13 +19,13 @@ class ReturnInstruction extends Instruction {
 
     private ExecutionContext $execContext;
 
-    protected function executeSpecific() {
+    protected function executeSpecific(): void {
         $this->getCheckedArgs();
         $returnPosition = $this->callStack->pop();
         $this->execContext->instructionPointer = $returnPosition;
     }
 
-    public function setDependency(ExecutionContext $execContext) {
+    public function setDependency(ExecutionContext $execContext): void {
         $this->callStack = $execContext->callStack;
         $this->execContext = $execContext;
     }

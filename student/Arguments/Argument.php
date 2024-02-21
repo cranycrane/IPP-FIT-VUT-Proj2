@@ -8,5 +8,5 @@ abstract class Argument {
         $this->validate();
     }
 
-    abstract protected function validate();
+    abstract protected function validate(): void;
 }

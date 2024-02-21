@@ -33,11 +33,11 @@ class TypedValue {
         }
     }
 
-    public function getType() {
+    public function getType(): DataType {
         return $this->dataType;
     }
 
-    public function getValue() {
+    public function getValue(): mixed {
         return $this->value;
     }
 }

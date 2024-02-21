@@ -6,6 +6,9 @@ use Exception;
 use IPP\Student\Exception\MissingValueException;
 
 class CallStack {
+    /**
+     * @var int[] $stack Pole pozic volani
+     */
     private array $stack = [];
 
     public function push(int $position): void {

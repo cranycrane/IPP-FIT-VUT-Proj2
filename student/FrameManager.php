@@ -22,32 +22,32 @@ class FrameManager {
         $this->localFrameStack = new LocalFrameStack();
     }
 
-    public function createTempFrame() {
+    public function createTempFrame(): void {
         $this->tempFrame = new TemporaryFrame();
     }
 
-    public function pushFrameStack() {
+    public function pushFrameStack(): void {
         if (!isset($this->tempFrame)) {
             throw new FrameAccessException("Frame not created");
         }
         $this->localFrameStack->push($this->tempFrame);
     }
 
-    public function popFrameStack() {
+    public function popFrameStack(): void {
         $this->localFrameStack->pop();
     }
 
-    public function declareVariable(string $frameName, Variable $variable) {
+    public function declareVariable(string $frameName, Variable $variable): void {
         $frame = $this->getFrame($frameName);
         $frame->declareVariable($variable);
     }
 
-    public function setVariable(string $frameName, string $varName, mixed $value, DataType $dataType) {
+    public function setVariable(string $frameName, string $varName, mixed $value, DataType $dataType): void {
         $frame = $this->getFrame($frameName);
         $frame->getVariable($varName)->setValue($value, $dataType);
     }
 
-    public function getVariable(string $frameName, string $name) {
+    public function getVariable(string $frameName, string $name): Variable {
         $frame = $this->getFrame($frameName);
         return $frame->getVariable($name);
     }

@@ -9,7 +9,7 @@ class VarArgument extends Argument {
     private string $frame;
     private string $name;
 
-    public function __construct($value) {
+    public function __construct(string $value) {
         $parts = explode('@', $value, 2);
         if(count($parts) === 2) {
             $this->frame = $parts[0];
@@ -21,15 +21,15 @@ class VarArgument extends Argument {
         parent::__construct();
     }
 
-    public function getFrameName() {
+    public function getFrameName(): string {
         return $this->frame;
     }
 
-    public function getName() {
+    public function getName(): string {
         return $this->name;
     }
 
-    protected function validate() {
+    protected function validate(): void {
         if (!\in_array($this->frame, ['LF', 'GF', 'TF'])) {
             throw new ArgumentException("Neznamy nazev ramce {$this->frame}");
         }

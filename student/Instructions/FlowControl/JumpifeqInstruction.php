@@ -17,7 +17,7 @@ class JumpifeqInstruction extends FrameAwareInstruction {
 
     private ExecutionContext $execContext;
 
-    protected function executeSpecific() {
+    protected function executeSpecific(): void {
         [$labelName, $value1, $value2] = $this->getCheckedArgs();
 
         if ($value1 == $value2) {
@@ -45,7 +45,7 @@ class JumpifeqInstruction extends FrameAwareInstruction {
         return [$labelName, $arg1->getValue(), $arg2->getValue()];
     }
 
-    protected function setDependency(ExecutionContext $execContext) {
+    protected function setDependency(ExecutionContext $execContext): void {
         parent::setDependency($execContext);
         $this->labelManager = $execContext->labelManager;
         $this->execContext = $execContext;

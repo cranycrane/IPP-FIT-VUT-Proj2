@@ -4,12 +4,14 @@ namespace IPP\Student\Instructions\Boolean;
 
 use ArgumentCountError;
 use InvalidArgumentException;
+use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
 use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Exception\WrongOperandTypesException;
 use IPP\Student\FrameManager;
+use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
 
 abstract class BoolInstruction extends FrameAwareInstruction {
@@ -18,7 +20,7 @@ abstract class BoolInstruction extends FrameAwareInstruction {
     abstract function executeSpecific(): void;
 
     /**
-     * @return array{Variable,bool,bool}
+     * @return array{Variable,bool,?bool}
      */
     protected function getCheckedArgs(): array {
         $args = $this->getArgs();
@@ -46,7 +48,7 @@ abstract class BoolInstruction extends FrameAwareInstruction {
         return [$variable, $value2, $value3];
     }
 
-    protected function getValue($argument) {
+    protected function getValue(Argument $argument): bool {
         if ($argument instanceof VarArgument) {
             $variable = $this->frameManager->getVariable($argument->getFrameName(), $argument->getName());
             

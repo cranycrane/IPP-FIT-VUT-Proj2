@@ -5,6 +5,9 @@ namespace IPP\Student;
 use IPP\Student\Exception\OpcodeNotFoundException;
 
 class InstructionMap {
+    /**
+     * @var string[] $map
+     */
     private static $map = [
         'MOVE' => 'IPP\Student\Instructions\Memory\MoveInstruction',
         'CREATEFRAME' => 'IPP\Student\Instructions\Memory\CreateFrameInstruction',
@@ -41,7 +44,7 @@ class InstructionMap {
         'EXIT' => 'IPP\Student\Instructions\FlowControl\ExitInstruction',
     ];
 
-    public static function getClassNameForOpcode($opcode) {
+    public static function getClassNameForOpcode(string $opcode): string {
         if (!array_key_exists($opcode, self::$map)) {
             throw new OpcodeNotFoundException("Neznámý opcode '$opcode'");
         }

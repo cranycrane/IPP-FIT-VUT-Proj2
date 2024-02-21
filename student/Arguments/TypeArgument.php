@@ -8,20 +8,20 @@ use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Exception\UnexpectedArgumentException;
 
 class TypeArgument extends Argument {
-    private $dataType;
+    private DataType $dataType;
 
-    public function __construct($value) {
+    public function __construct(string $value) {
         $this->dataType = DataType::from($value);
         parent::__construct();
     }
 
-    protected function validate() {
+    protected function validate(): void {
         if ($this->dataType != DataType::Int && $this->dataType != DataType::String && $this->dataType != DataType::Bool) {
             throw new UnexpectedArgumentException("Arg type nenabyva urcenych hodnot");
         }
     }
 
-    public function getDataType() {
+    public function getDataType(): DataType {
         return $this->dataType;
     }
 }

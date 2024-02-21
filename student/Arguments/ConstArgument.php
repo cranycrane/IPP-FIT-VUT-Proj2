@@ -9,27 +9,26 @@ use IPP\Student\Exception\ArgumentException;
 class ConstArgument extends Argument {
     private DataType $dataType;
 
-    private $value;
+    private mixed $value;
 
-    public function __construct(DataType $dataType, $value) {
+    public function __construct(DataType $dataType, string $value) {
         $this->dataType = $dataType;
         $this->value = $value;
         parent::__construct();
     }
 
-    public function getValue() {
-        if ($this->dataType == DataType::Int) {
+    public function getValue(): mixed {
+        if ($this->dataType == DataType::Int && is_numeric($this->value)) {
             return (int) $this->value;
         }
         return $this->value;
     }
+    
 
-    public function getDataType() {
+    public function getDataType(): DataType {
         return $this->dataType;
     }
 
-    protected function validate() {
-        // Validace názvu proměnné a případně rámce
-        
+    protected function validate(): void {        
     }
 }

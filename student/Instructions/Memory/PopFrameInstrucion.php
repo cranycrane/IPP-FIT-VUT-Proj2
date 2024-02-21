@@ -15,6 +15,9 @@ class PopFrameInstrucion extends FrameAwareInstruction {
         $this->frameManager->popFrameStack();
     }
 
+    /**
+     * @return array<null>
+     */
     protected function getCheckedArgs(): array {
         $args = $this->getArgs();
         if (count($args) != 0) {

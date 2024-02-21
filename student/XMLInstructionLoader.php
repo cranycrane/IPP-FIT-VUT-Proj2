@@ -7,8 +7,10 @@ use DOMElement;
 use DOMNodeList;
 use IPP\Core\Interface\InputReader;
 use IPP\Core\Interface\OutputWriter;
+use IPP\Student\Instructions\Instruction;
 use IPP\Student\Factory\ArgumentFactory;
 use IPP\Student\Factory\InstructionFactory;
+use IPP\Student\Arguments\Argument;
 
 class XMLInstructionLoader {
     protected DOMDocument $domDocument;
@@ -20,7 +22,7 @@ class XMLInstructionLoader {
     }
 
     /**
-     * @return Instruction[]
+     * @return array<int,Instruction>
      */
     public function loadInstructions() {
         $instructions = [];
@@ -41,6 +43,9 @@ class XMLInstructionLoader {
         return array_values($instructions); // Vrátí setříděné instrukce s resetovanými indexy
     }    
 
+    /**
+     * @return Argument[]
+     */
     private function loadArgs(DOMNodeList $args) {
         $argArray = [];
         foreach ($args as $arg) {

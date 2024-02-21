@@ -16,7 +16,7 @@ class WriteInstruction extends FrameAwareInstruction {
 
     protected OutputWriter $outputWriter;
     
-    public function setDependency(ExecutionContext $execContext) {
+    public function setDependency(ExecutionContext $execContext): void {
         parent::setDependency($execContext);
         $this->outputWriter = $execContext->stdout;
     }
@@ -40,7 +40,7 @@ class WriteInstruction extends FrameAwareInstruction {
         return [$symbVar];
     }
 
-    protected function writeDependType(mixed $value, DataType $dataType) {
+    protected function writeDependType(mixed $value, DataType $dataType): void {
         if ($dataType == DataType::Bool) {
             $this->outputWriter->writeBool($value);
         }

@@ -4,17 +4,18 @@ namespace IPP\Student\Instructions\Relational;
 
 use ArgumentCountError;
 use InvalidArgumentException;
+use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
 use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Exception\WrongOperandTypesException;
-use IPP\Student\FrameManager;
+use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
 
 abstract class RelationalInstruction extends FrameAwareInstruction {
 
-    protected abstract function executeSpecific();
+    protected abstract function executeSpecific(): void;
 
     /**
      * @return array{Variable,mixed,mixed}
@@ -47,7 +48,7 @@ abstract class RelationalInstruction extends FrameAwareInstruction {
         return [$variable, $value2, $value3];
     }
 
-    private function getValue($argument) {
+    private function getValue(Argument $argument): mixed {
         if ($argument instanceof VarArgument) {
             $variable = $this->frameManager->getVariable($argument->getFrameName(), $argument->getName());
             $varValue = $variable->getValue();

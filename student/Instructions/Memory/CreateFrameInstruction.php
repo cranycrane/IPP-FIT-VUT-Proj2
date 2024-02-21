@@ -17,6 +17,9 @@ class CreateFrameInstruction extends FrameAwareInstruction {
         $this->frameManager->createTempFrame();
     }
 
+    /**
+     * @return array<null>
+     */
     protected function getCheckedArgs(): array {
         $args = $this->getArgs();
         if (count($args) != 0) {

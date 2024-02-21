@@ -18,7 +18,7 @@ use PhpParser\Node\Expr\Instanceof_;
 abstract class FrameAwareInstruction extends Instruction {
     protected FrameManager $frameManager;
 
-    protected function setDependency(ExecutionContext $execContext) {
+    protected function setDependency(ExecutionContext $execContext): void {
         $this->frameManager = $execContext->frameManager;
     }
 

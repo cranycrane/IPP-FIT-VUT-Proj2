@@ -16,7 +16,7 @@ use IPP\Student\Variable;
 class ConcatInstruction extends FrameAwareInstruction {
 
 
-    protected function executeSpecific() {
+    protected function executeSpecific(): void {
         [$variable, $operand1, $operand2] = $this->getCheckedArgs();
         $result = $operand1 . $operand2;
         $variable->setValue($result, DataType::String);

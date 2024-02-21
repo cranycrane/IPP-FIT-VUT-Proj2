@@ -15,6 +15,9 @@ class PushFrameInstruction extends FrameAwareInstruction {
         $this->frameManager->pushFrameStack();
     }
 
+    /**
+     * @return array<null>
+     */
     protected function getCheckedArgs(): array {
         $args = $this->getArgs();
         if (count($args) != 0) {

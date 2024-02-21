@@ -14,11 +14,11 @@ class StackValue {
         $this->dataType = $dataType;
     }
 
-    public function getValue() {
+    public function getValue(): mixed {
         return $this->value;
     }
 
-    public function getType() {
+    public function getType(): DataType {
         return $this->dataType;
     }
 }

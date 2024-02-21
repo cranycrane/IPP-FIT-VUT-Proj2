@@ -25,7 +25,7 @@ class CallInstruction extends Instruction {
 
     private ExecutionContext $execContext;
 
-    public function executeSpecific() {
+    public function executeSpecific(): void {
         [$labelName] = $this->getCheckedArgs();
 
         $targetPosition = $this->labelManager->findLabelPosition($labelName);
@@ -34,7 +34,7 @@ class CallInstruction extends Instruction {
         $this->execContext->instructionPointer = $targetPosition;
     }
 
-    protected function setDependency(ExecutionContext $execContext) {
+    protected function setDependency(ExecutionContext $execContext): void {
         $this->callStack = $execContext->callStack;
         $this->labelManager = $execContext->labelManager;
         $this->execContext = $execContext;

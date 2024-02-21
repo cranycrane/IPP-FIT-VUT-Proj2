@@ -13,12 +13,8 @@ use IPP\Student\Variable;
 class TypeInstruction extends FrameAwareInstruction {
 
     public function executeSpecific(): void {
-        try {
-            [$variable, $symbType] = $this->getCheckedArgs();
-            $value = $symbType->value;
-        } catch (UninitializedVariableException $e) {
-            $value = '';
-        }
+        [$variable, $symbType] = $this->getCheckedArgs();
+        $value = $symbType->value;
 
         $variable->setValue($value, DataType::String);
     }

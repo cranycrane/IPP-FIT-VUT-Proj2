@@ -18,7 +18,7 @@ class ReadInstruction extends FrameAwareInstruction {
 
     private InputReader $inputReader;
     
-    public function setDependency(ExecutionContext $execContext) {
+    public function setDependency(ExecutionContext $execContext): void {
         parent::setDependency($execContext);
         $this->inputReader = $execContext->stdin;
     }
@@ -47,7 +47,7 @@ class ReadInstruction extends FrameAwareInstruction {
         return [$variable, $typeArg->getDataType()];
     }
 
-    private function readDependType(DataType $dataType) {
+    private function readDependType(DataType $dataType): mixed {
         if ($dataType == DataType::Bool) {
             $value = $this->inputReader->readBool();
         }

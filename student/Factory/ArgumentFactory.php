@@ -2,6 +2,7 @@
 
 namespace IPP\Student\Factory;
 
+use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\LabelArgument;
 use IPP\Student\Arguments\TypeArgument;
@@ -9,10 +10,12 @@ use IPP\Student\Arguments\VarArgument;
 use IPP\Student\Exception\OpcodeNotFoundException;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\DataType;
+use IPP\Student\Exception\ArgumentException;
+use IPP\Student\Exception\StringException;
 
 class ArgumentFactory {
     
-    public static function createArg(string $type, $value) {
+    public static function createArg(string $type, string $value): Argument {
         if (\in_array($type, ['int', 'nil', 'bool', 'float'])) {
             return new ConstArgument(DataType::from($type), $value);
         }
@@ -28,16 +31,24 @@ class ArgumentFactory {
         else if ($type == 'type') {
             return new TypeArgument($value);
         }
+        else {
+            throw new ArgumentException();
+        }
     }
 
-    protected static function convertEscapeSeq($string) {
-        return preg_replace_callback('/\\\\(\d{1,3})/', function ($matches) {
+    protected static function convertEscapeSeq(string $string): string {
+        $convertedStr = preg_replace_callback('/\\\\(\d{1,3})/', function ($matches) {
             $asciiValue = $matches[1];
             if ($asciiValue >= 0 && $asciiValue <= 999) {
                 return chr($asciiValue);
             }
             return $matches[0];
         }, $string);
+
+        if (!isset($convertedStr)) {
+            throw new StringException();
+        }
+        return $convertedStr;
     }
 
 }

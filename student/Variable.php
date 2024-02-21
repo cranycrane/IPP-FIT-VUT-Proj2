@@ -20,7 +20,7 @@ class Variable {
         return $this->name;
     }
 
-    private function isInitialized() {
+    private function isInitialized(): bool {
         if (!isset($this->typedValue)) {
             throw new UninitializedVariableException("Promenna neinicializovana");
         }
@@ -44,7 +44,7 @@ class Variable {
     /**
      * @return TypedValue
      */
-    public function getTypedValue() {
+    public function getTypedValue(): TypedValue {
         $this->isInitialized();
         return $this->typedValue;
     }

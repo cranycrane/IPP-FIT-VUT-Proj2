@@ -15,7 +15,7 @@ class JumpInstruction extends Instruction {
 
     private ExecutionContext $execContext;
 
-    protected function executeSpecific() {
+    protected function executeSpecific(): void {
         [$labelName] = $this->getCheckedArgs();
         $targetPosition = $this->labelManager->findLabelPosition($labelName);
         $this->execContext->instructionPointer = $targetPosition-1;
@@ -27,7 +27,7 @@ class JumpInstruction extends Instruction {
         return [$labelName];
     }
 
-    protected function setDependency(ExecutionContext $execContext) {
+    protected function setDependency(ExecutionContext $execContext): void {
         $this->labelManager = $execContext->labelManager;
         $this->execContext = $execContext;
     }

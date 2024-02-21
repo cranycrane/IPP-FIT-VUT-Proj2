@@ -4,15 +4,20 @@ namespace IPP\Student;
 
 use DOMDocument;
 use DOMElement;
+use DOMNode;
 use DOMNodeList;
 use IPP\Student\Exception\OpcodeNotFoundException;
 use IPP\Student\Exception\UnexpectedXMLStructureException;
 use IPP\Student\Factory\InstructionFactory;
+use IPP\Student\Instructions\Instruction;
 use UnexpectedValueException;
 
 class XMLValidator {
     private DOMDocument $domDocument;
 
+    /**
+     * @var int[] $usedOrderNumbers
+     */
     private array $usedOrderNumbers;
 
     public function __construct(DOMDocument $domDocument) {
@@ -22,7 +27,7 @@ class XMLValidator {
 
     public function validateStructure(): bool {
         $programElement = $this->domDocument->documentElement;
-        if ($programElement->nodeName !== 'program') {
+        if (!isset($programElement) || $programElement->nodeName !== 'program') {
             throw new UnexpectedXMLStructureException("Ocekavan hlavni element 'program'");
         }
         
@@ -38,7 +43,7 @@ class XMLValidator {
         return true;
     }
 
-    private function checkInstructionElement(DOMElement $instruction) {
+    private function checkInstructionElement(DOMElement $instruction): void {
         $attributes = $instruction->attributes;
 
         $orderAttr = $attributes->getNamedItem('order');
@@ -57,12 +62,17 @@ class XMLValidator {
             throw new UnexpectedXMLStructureException("Neocekavana hodnota atributu 'order'");
         } 
 
-        $this->usedOrderNumbers[] = $orderAttr->nodeValue;
+        $this->usedOrderNumbers[] = (int)$orderAttr->nodeValue;
 
         $this->checkArgsElements($instruction->childNodes);
     }
 
-    private function checkArgsElements(DOMNodeList $args) {
+    /**
+     * Kontroluje, že všechny prvky v DOMNodeList jsou instance DOMElement.
+     *
+     * @param DOMNodeList<DOMElement> $args Seznam uzlů k ověření
+     */
+    private function checkArgsElements(DOMNodeList $args): void {
         $counter = 1;
         foreach ($args as $arg) {
             if (!$arg instanceof DOMElement) {

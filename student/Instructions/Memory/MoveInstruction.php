@@ -2,9 +2,7 @@
 
 namespace IPP\Student\Instructions\Memory;
 
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\Exception\UnexpectedArgumentException;
+use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
 use IPP\Student\TypedValue;
 

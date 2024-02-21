@@ -10,7 +10,7 @@ use IPP\Student\Variable;
 
 class DefvarInstruction extends FrameAwareInstruction {
 
-    public function executeSpecific() {
+    public function executeSpecific(): void {
         [$varArg] = $this->getCheckedArgs();
         
         $variable = new Variable($varArg->getName());

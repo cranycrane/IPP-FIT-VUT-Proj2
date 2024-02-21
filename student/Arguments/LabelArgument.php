@@ -7,19 +7,17 @@ use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
 
 class LabelArgument extends Argument {
-    private $value;
+    private string $value;
 
-    public function __construct($value) {
+    public function __construct(string $value) {
         $this->value = $value;
         parent::__construct();
     }
 
-    public function getValue() {
+    public function getValue(): string {
         return $this->value;
     }
 
-    protected function validate() {
-        // Validace názvu proměnné a případně rámce
-        
+    protected function validate(): void {        
     }
 }

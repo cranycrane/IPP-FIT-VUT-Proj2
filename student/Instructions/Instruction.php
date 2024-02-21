@@ -13,29 +13,38 @@ use IPP\Student\ExecutionContext;
 abstract class Instruction {
     private int $order;
 
+    /**
+     * @var Argument[]
+     */
     private array $args;
 
+    /**
+     * @param Argument[] $args
+     */
     public function __construct(int $order, array $args = []) {
         $this->order = $order;
         $this->args = $args;
     }
 
-    public function execute(ExecutionContext $execContext) {
+    public function execute(ExecutionContext $execContext): void {
         $this->setDependency($execContext);
         $this->executeSpecific();
     }
 
+    /**
+     * @return array<mixed>
+     */
     protected abstract function getCheckedArgs(): array;
 
-    protected abstract function setDependency(ExecutionContext $execContext);
+    protected abstract function setDependency(ExecutionContext $execContext): void;
 
-    protected abstract function executeSpecific();
+    protected abstract function executeSpecific(): void;
 
-    public function getOrder() {
+    public function getOrder(): int {
         return $this->order;
     }
 
-    public function getArg($index): Argument {
+    public function getArg(int $index): Argument {
         if (\array_key_exists($index, $this->args)) {
             return $this->args[$index];
         }
@@ -50,7 +59,7 @@ abstract class Instruction {
         return $this->args;
     }
 
-    protected function checkArgsCount(int $argCount) {
+    protected function checkArgsCount(int $argCount): void {
         if (count($this->getArgs()) != $argCount) {
             throw new ArgumentCountError("Neocekavany pocet argumentu");
         }
