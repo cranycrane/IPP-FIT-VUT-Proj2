@@ -37,15 +37,40 @@ class Interpreter extends AbstractInterpreter
 
         $this->registerLabels($instructions);
 
-        $instructionsCount = count($instructions); // Předpokládejme, že $instructions je pole všech instrukcí
-        while ($this->execContext->instructionPointer < $instructionsCount) {
+        //var_dump($instructions);
+        $firstInstruction = reset($instructions);
+
+        if ($firstInstruction) {
+            $this->execContext->instructionPointer = $firstInstruction->getOrder();
+        }
+        next($instructions);
+        $arrayKeys = array_keys($instructions); // Předpokládejme, že $instructions je pole všech instrukcí
+        while ($this->execContext->instructionPointer) {
             $instruction = $instructions[$this->execContext->instructionPointer];
-            //echo("\n\nExecuting ". get_class($instruction) . "\n\n");
+            //echo("\n\nExecuting ". get_class($instruction) . " Order: " . $this->execContext->instructionPointer . "\n\n");
             $instruction->execute($this->execContext);
-            $this->execContext->instructionPointer++;
+            $this->execContext->instructionPointer = $this->getNextInstructionIndex($arrayKeys, $this->execContext->instructionPointer);
         }
         
         exit(0);
+    }
+
+    /**
+     * @param array<int,int> $keys
+     * @param int $currentPointer
+     * @return int
+     */
+    function getNextInstructionIndex(array $keys, int $currentPointer): int {
+        // Najde index aktuálního instructionPointer v seznamu klíčů
+        $currentIndex = array_search($currentPointer, $keys);
+
+        // Pokud není na poslední pozici, vrátí klíč následujícího prvku
+        if ($currentIndex !== false && $currentIndex < count($keys) - 1) {
+            return $keys[$currentIndex + 1];
+        }
+
+        // Jinak vrátí aktuální instructionPointer (pokud už není kam jít)
+        return 0;
     }
 
     private function validateXML(DOMDocument $dom): void {

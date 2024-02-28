@@ -15,11 +15,12 @@ class FrameManager {
 
     private LocalFrameStack $localFrameStack;
 
-    private TemporaryFrame $tempFrame;
+    private TemporaryFrame|null $tempFrame;
 
     public function __construct() {
         $this->globalFrame = new GlobalFrame();
         $this->localFrameStack = new LocalFrameStack();
+        $this->tempFrame = null;
     }
 
     public function createTempFrame(): void {
@@ -31,9 +32,22 @@ class FrameManager {
             throw new FrameAccessException("Frame not created");
         }
         $this->localFrameStack->push($this->tempFrame);
+        $this->tempFrame = null;
     }
 
+    /**
+     * @throws FrameNotInitializedException
+     * @throws FrameAccessException
+     */
     public function popFrameStack(): void {
+        $tempFrame = $this->localFrameStack->top();
+
+        if (!$tempFrame) {
+            throw new FrameNotInitializedException("Cant pop empty frame stack");
+        }
+
+        $this->tempFrame = $tempFrame;
+
         $this->localFrameStack->pop();
     }
 
@@ -59,7 +73,7 @@ class FrameManager {
             case 'LF':
                 return $this->localFrameStack->top();
             case 'TF':
-                if ($this->tempFrame == null) {
+                if (!isset($this->tempFrame)) {
                     throw new FrameNotInitializedException("Docasny ramec nebyl inicializovan");
                 }
                 return $this->tempFrame;

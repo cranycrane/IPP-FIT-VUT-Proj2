@@ -3,6 +3,7 @@
 namespace IPP\Student\Instructions\FlowControl;
 
 use IPP\Student\Arguments\LabelArgument;
+use IPP\Student\Exception\UndefinedLabelException;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\ExecutionContext;
 use IPP\Student\FrameManager;
@@ -15,12 +16,20 @@ class JumpInstruction extends Instruction {
 
     private ExecutionContext $execContext;
 
+    /**
+     * @throws UndefinedLabelException
+     * @throws UnexpectedArgumentException
+     */
     protected function executeSpecific(): void {
         [$labelName] = $this->getCheckedArgs();
         $targetPosition = $this->labelManager->findLabelPosition($labelName);
-        $this->execContext->instructionPointer = $targetPosition-1;
+        $this->execContext->instructionPointer = $targetPosition;
     }
 
+    /**
+     * @return array{string}
+     * @throws UnexpectedArgumentException
+     */
     protected function getCheckedArgs(): array {
         $this->checkArgsCount(1);
         $labelName = $this->getLabelName();

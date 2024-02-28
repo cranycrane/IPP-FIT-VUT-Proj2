@@ -9,7 +9,7 @@ use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
 use IPP\Student\Variable;
 
-class PopFrameInstrucion extends FrameAwareInstruction {
+class PopFrameInstruction extends FrameAwareInstruction {
 
     public function executeSpecific(): void {
         $this->frameManager->popFrameStack();

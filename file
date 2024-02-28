@@ -1,29 +1,19 @@
-.IFJcode23
+.IPPcode24
+#.IPPcode24
 # Inicializace proměnných
-DEFVAR GF@input
-DEFVAR GF@result
-DEFVAR GF@char
-DEFVAR GF@cond
-MOVE GF@input string@abcabcabc
-MOVE GF@result string@
-
-# Smyčka pro procházení řetězcem a kopírování každého druhého znaku do výsledku
-DEFVAR GF@i
-MOVE GF@i int@0
-LABEL loop
-GETCHAR GF@char GF@input GF@i
-JUMPIFEQ end GF@i int@9  # Předpokládáme pevnou délku vstupního řetězce "abcabcabc"
-
-# Kopírování každého druhého znaku (s indexy 0, 2, 4, ...)
-AND GF@cond GF@i bool@true  # Využití operace AND pro zjištění sudosti indexu
-JUMPIFEQ skip GF@cond bool@false
-CONCAT GF@result GF@result GF@char
-
-LABEL skip
-ADD GF@i GF@i int@1
-JUMP loop
-
-# Ukončení smyčky a výpis výsledku
-LABEL end
-WRITE string@Vysledek\032je\032
-WRITE GF@result
+DEFVAR GF@x
+CREATEFRAME
+DEFVAR TF@isTrue
+MOVE GF@x int@0
+JUMP ahoj
+LABEL ahoj
+WRITE string@string
+JUMP ahoj2
+LABEL ahoj2
+WRITE GF@x
+ADD GF@x GF@x int@1
+EQ TF@isTrue GF@x int@69
+JUMPIFEQ ahoj3 TF@isTrue bool@true
+JUMP ahoj
+LABEL ahoj3
+WRITE string@konec

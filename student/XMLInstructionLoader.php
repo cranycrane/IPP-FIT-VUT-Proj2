@@ -39,8 +39,8 @@ class XMLInstructionLoader {
     
         // Setřídění instrukcí podle klíče 'order'
         ksort($instructions);
-    
-        return array_values($instructions); // Vrátí setříděné instrukce s resetovanými indexy
+        return $instructions;
+        //return array_values($instructions); // Vrátí setříděné instrukce s resetovanými indexy
     }    
 
     /**

@@ -58,7 +58,7 @@ class XMLValidator {
         if ($orderAttr == null || $opcodeAttr == null) {
             throw new UnexpectedXMLStructureException("Instruction neobsahuje 'order' nebo 'opcode");
         }
-        if (!is_numeric($orderAttr->nodeValue) || \in_array($orderAttr->nodeValue, $this->usedOrderNumbers)) {
+        if (!is_numeric($orderAttr->nodeValue) || \in_array($orderAttr->nodeValue, $this->usedOrderNumbers) || (int)$orderAttr->nodeValue < 1) {
             throw new UnexpectedXMLStructureException("Neocekavana hodnota atributu 'order'");
         } 
 

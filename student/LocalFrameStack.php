@@ -25,7 +25,7 @@ class LocalFrameStack {
         array_push($this->stack, $tempFrame);
     }
 
-    public function top(): TemporaryFrame {
+    public function top(): TemporaryFrame|false {
         return end($this->stack);
     }
 

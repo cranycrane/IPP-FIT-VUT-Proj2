@@ -9,6 +9,6 @@ use Throwable;
 
 class UninitializedVariableException extends IPPException {
     public function __construct(string $message = "Neinicializovana promenna", ?Throwable $previous = null) {
-        parent::__construct($message, ReturnCode::VALUE_ERROR, $previous, false);
+        parent::__construct($message, ReturnCode::VALUE_ERROR, $previous, true);
     }
 }
