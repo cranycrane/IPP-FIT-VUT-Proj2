@@ -20,8 +20,9 @@ class JumpifneqInstruction extends FrameAwareInstruction {
     protected function executeSpecific(): void {
         [$labelName, $value1, $value2] = $this->getCheckedArgs();
 
-        if ($value1 != $value2) {
-            $targetPosition = $this->labelManager->findLabelPosition($labelName);
+        $targetPosition = $this->labelManager->findLabelPosition($labelName);
+
+        if ($value1 !== $value2) {
             $this->execContext->instructionPointer = $targetPosition-1;
         }
     }
@@ -33,13 +34,8 @@ class JumpifneqInstruction extends FrameAwareInstruction {
         $arg1 = $this->getArgValue($this->getArg(1));
         $arg2 = $this->getArgValue($this->getArg(2));
 
-        if ($arg1->getType() == DataType::Nil || $arg2->getType() == DataType::Nil) {
+        if ($arg1->getType() != $arg2->getType() && ($arg1->getType() != DataType::Nil && $arg2->getType() != DataType::Nil)) {
             throw new ArgumentException();
-        }
-
-        if ($arg1->getType() != $arg2->getType()) {
-            throw new ArgumentException();
-   
         }
 
         return [$labelName, $arg1->getValue(), $arg2->getValue()];

@@ -18,6 +18,7 @@ class MoveInstruction extends FrameAwareInstruction {
      * @return array{Variable,TypedValue}
      */
     public function getCheckedArgs(): array {
+        $this->checkArgsCount(2);
         $variable = $this->getDestVar($this->getArg(0));
 
         $value = $this->getArgValue($this->getArg(1));

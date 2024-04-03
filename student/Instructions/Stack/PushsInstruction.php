@@ -5,6 +5,7 @@ namespace IPP\Student\Instructions\Stack;
 use ArgumentCountError;
 use InvalidArgumentException;
 use IPP\Student\DataType;
+use IPP\Student\Exception\ArgumentException;
 use IPP\Student\TypedValue;
 
 class PushsInstruction extends StackInstruction {
@@ -28,7 +29,7 @@ class PushsInstruction extends StackInstruction {
         $symb = $this->getArgValue($this->getArg(0));
 
         if ($symb->getType() == DataType::Nil) {
-            throw new InvalidArgumentException();
+            throw new ArgumentException("Nelze push typu 'nil' na zasobnik");
         }
 
         return [$symb];

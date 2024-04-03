@@ -32,6 +32,7 @@ abstract class FrameAwareInstruction extends Instruction {
     }
 
     protected function getArgValue(Argument $arg, DataType $type = null): TypedValue {
+
         if ($arg instanceof VarArgument) {
             $variable = $this->frameManager->getVariable($arg->getFrameName(), $arg->getName());
             $typedValue = $variable->getTypedValue();

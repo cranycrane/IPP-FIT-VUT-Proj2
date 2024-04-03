@@ -3,6 +3,7 @@
 namespace IPP\Student\Instructions;
 
 use ArgumentCountError;
+use IPP\Student\Exception\ArgumentCountException;
 use IPP\Student\Exception\ArgumentDoesntExistException;
 use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\LabelArgument;
@@ -61,7 +62,7 @@ abstract class Instruction {
 
     protected function checkArgsCount(int $argCount): void {
         if (count($this->getArgs()) != $argCount) {
-            throw new ArgumentCountError("Neocekavany pocet argumentu");
+            throw new ArgumentCountException("Neocekavany pocet argumentu");
         }
     }
 

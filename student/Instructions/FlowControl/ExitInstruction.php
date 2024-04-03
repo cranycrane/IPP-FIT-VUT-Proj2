@@ -3,8 +3,10 @@
 namespace IPP\Student\Instructions\FlowControl;
 
 use IPP\Student\Arguments\LabelArgument;
+use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Exception\UnexpectedArgumentException;
+use IPP\Student\Exception\WrongExitValueException;
 use IPP\Student\ExecutionContext;
 use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
@@ -22,11 +24,15 @@ class ExitInstruction extends FrameAwareInstruction {
 
         $value = $this->getArgValue($this->getArg(0));
 
-        if ($value->getValue() < 0 || $value->getValue() > 9) {
-            throw new ArgumentException();
+        if ($value->getType() != DataType::Int) {
+            throw new WrongExitValueException("Neocekavany datovy typ argument, ocekavan INT");
         }
 
-        return [$value];
+        if ($value->getValue() < 0 || $value->getValue() > 9) {
+            throw new WrongExitValueException("Hodnota argumentu EXIT musi byt v intervalu 0-9");
+        }
+
+        return [$value->getValue()];
     }
 
 }

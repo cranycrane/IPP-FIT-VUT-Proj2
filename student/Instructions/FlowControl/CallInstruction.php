@@ -27,9 +27,8 @@ class CallInstruction extends Instruction {
 
     public function executeSpecific(): void {
         [$labelName] = $this->getCheckedArgs();
-
         $targetPosition = $this->labelManager->findLabelPosition($labelName);
-        $this->callStack->push($this->getOrder() + 1);
+        $this->callStack->push($this->getOrder());
 
         $this->execContext->instructionPointer = $targetPosition;
     }
@@ -45,10 +44,10 @@ class CallInstruction extends Instruction {
         $label = $args[0];
 
         if (count($args) != 1) {
-            throw new InvalidArgumentException("Neocekavany pocet argumentu");
+            throw new ArgumentException("Neocekavany pocet argumentu");
         }
         if (!$label instanceof LabelArgument) {
-            throw new InvalidArgumentException("Neocekavany typ argumentu");
+            throw new ArgumentException("Neocekavany typ argumentu");
         }
 
         return [$label->getValue()];

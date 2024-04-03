@@ -34,6 +34,9 @@ abstract class RelationalInstruction extends FrameAwareInstruction {
             throw new WrongOperandTypesException("Datove typy operandu se lisi");
         }
 
+        if ($symbArg1->getType() == DataType::Nil || $symbArg2->getType() == DataType::Nil) {
+            throw new WrongOperandTypesException("GT argument nesmi byt typu nil");
+        }
 
         return [$variable, $symbArg1->getValue(), $symbArg2->getValue()];
     }
@@ -47,11 +50,11 @@ abstract class RelationalInstruction extends FrameAwareInstruction {
 
         if ($argument instanceof ConstArgument) {
             if ($argument->getDataType() == DataType::Nil) {
-                throw new InvalidArgumentException("Argument nesmi byt nil");
+                throw new ArgumentException("Argument nesmi byt nil");
             }
             return $argument->getValue();
         } else {
-            throw new InvalidArgumentException("Argument byt promenna nebo literal");
+            throw new ArgumentException("Argument byt promenna nebo literal");
         }
     }    
 }

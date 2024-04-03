@@ -1,19 +1,11 @@
 .IPPcode24
-#.IPPcode24
-# Inicializace proměnných
-DEFVAR GF@x
-CREATEFRAME
-DEFVAR TF@isTrue
-MOVE GF@x int@0
-JUMP ahoj
-LABEL ahoj
-WRITE string@string
-JUMP ahoj2
-LABEL ahoj2
-WRITE GF@x
-ADD GF@x GF@x int@1
-EQ TF@isTrue GF@x int@69
-JUMPIFEQ ahoj3 TF@isTrue bool@true
-JUMP ahoj
-LABEL ahoj3
-WRITE string@konec
+DEFVAR GF@a
+AND GF@a bool@false bool@false
+WRITE GF@a
+AND GF@a bool@false bool@true
+WRITE GF@a
+AND GF@a bool@true bool@false
+WRITE GF@a
+AND GF@a bool@true bool@true
+
+WRITE GF@a

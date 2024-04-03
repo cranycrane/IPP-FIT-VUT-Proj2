@@ -51,7 +51,7 @@ class WriteInstruction extends FrameAwareInstruction {
             $this->outputWriter->writeString($value);
         }
         else if ($dataType == DataType::Nil) {
-            $this->outputWriter->writeString('nil');
+            $this->outputWriter->writeString('');
         }
         else {
             throw new UnexpectedArgumentException("Neocekavany datovy typ argumentu");

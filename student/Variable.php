@@ -22,7 +22,7 @@ class Variable {
 
     private function isInitialized(): bool {
         if (!isset($this->typedValue)) {
-            throw new UninitializedVariableException("Promenna neinicializovana");
+            throw new UninitializedVariableException("Promenna {$this->name} neinicializovana");
         }
         return true;
     }

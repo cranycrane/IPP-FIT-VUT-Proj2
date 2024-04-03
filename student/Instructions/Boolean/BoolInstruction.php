@@ -31,15 +31,15 @@ abstract class BoolInstruction extends FrameAwareInstruction {
             throw new ArgumentCountError("Nesprávný počet argumentů");
         }
         if (!$varArg instanceof VarArgument) {
-            throw new InvalidArgumentException("První argument musí být proměnná");
+            throw new ArgumentException("První argument musí být proměnná");
         }
         if (!($args[1] instanceof VarArgument || $args[1] instanceof ConstArgument)) {
-            throw new InvalidArgumentException("Druhy argument musi byt promenna nebo literal");
+            throw new ArgumentException("Druhy argument musi byt promenna nebo literal");
         }
         if (!($args[2] instanceof VarArgument || $args[2] instanceof ConstArgument)) {
-            throw new InvalidArgumentException("Treti argument musi byt promenna nebo literal");            
+            throw new ArgumentException("Treti argument musi byt promenna nebo literal");
         }
-        
+
         $variable = $this->frameManager->getVariable($varArg->getFrameName(), $varArg->getName());
 
         $value2 = $this->getValue($args[1]);
@@ -51,9 +51,9 @@ abstract class BoolInstruction extends FrameAwareInstruction {
     protected function getValue(Argument $argument): bool {
         if ($argument instanceof VarArgument) {
             $variable = $this->frameManager->getVariable($argument->getFrameName(), $argument->getName());
-            
+
             if ($variable->getType() != DataType::Bool) {
-                throw new InvalidArgumentException("Argument musi byt typu BOOL");
+                throw new ArgumentException("Argument musi byt typu BOOL");
             }
 
             $varValue = $variable->getValue();
@@ -62,11 +62,11 @@ abstract class BoolInstruction extends FrameAwareInstruction {
 
         if ($argument instanceof ConstArgument) {
             if ($argument->getDataType() != DataType::Bool) {
-                throw new InvalidArgumentException("Argument musi byt typu BOOL");
+                throw new ArgumentException("Argument musi byt typu BOOL");
             }
             return $argument->getValue();
         } else {
-            throw new InvalidArgumentException("Argument musi byt typu BOOL");
+            throw new ArgumentException("Argument musi byt typu BOOL");
         }
     }
 }

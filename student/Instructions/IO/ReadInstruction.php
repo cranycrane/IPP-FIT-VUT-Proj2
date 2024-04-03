@@ -25,10 +25,9 @@ class ReadInstruction extends FrameAwareInstruction {
 
     public function executeSpecific(): void {
         [$variable, $typeType] = $this->getCheckedArgs();
-
         $value = $this->readDependType($typeType);
 
-        if (empty($value)) {
+        if (is_null($value)) {
             $typeType = DataType::Nil;
         }
 

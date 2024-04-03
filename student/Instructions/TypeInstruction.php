@@ -8,21 +8,25 @@ use IPP\Student\DataType;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\Exception\UninitializedVariableException;
 use IPP\Student\FrameManager;
+use IPP\Student\TypedValue;
 use IPP\Student\Variable;
 
-class TypeInstruction extends FrameAwareInstruction {
+class TypeInstruction extends FrameAwareInstruction
+{
 
-    public function executeSpecific(): void {
-        [$variable, $symbType] = $this->getCheckedArgs();
-        $value = $symbType->value;
+    public function executeSpecific(): void
+    {
+        [$variable, $value] = $this->getCheckedArgs();
 
         $variable->setValue($value, DataType::String);
     }
 
     /**
-     * @return array{Variable,DataType}
+     * @return array{Variable,string}
+     * @todo v symbArg muze byt neinicializovana promenna - zjistit jak vyresit
      */
-    protected function getCheckedArgs(): array {
+    protected function getCheckedArgs(): array
+    {
         $args = $this->getArgs();
 
         if (count($args) != 2) {
@@ -30,9 +34,14 @@ class TypeInstruction extends FrameAwareInstruction {
         }
 
         $variable = $this->getDestVar($args[0]);
-        $symbArg = $this->getArgValue($args[1]);
 
-        return [$variable, $symbArg->getType()];
+        try {
+            $symbArgValue = $this->getArgValue($args[1])->getType()->value;
+        } catch (UninitializedVariableException $e) {
+            $symbArgValue = '';
+        }
+
+        return [$variable, $symbArgValue];
     }
 
 }

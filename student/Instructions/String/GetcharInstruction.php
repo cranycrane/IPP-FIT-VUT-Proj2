@@ -18,7 +18,7 @@ class GetcharInstruction extends FrameAwareInstruction {
     public function executeSpecific(): void {
         [$variable, $string, $position] = $this->getCheckedArgs();
 
-        if ($position >= strlen($string)) {
+        if ($position >= strlen($string) || $position < 0) {
             throw new StringException("Nelze ziskat znak mimo retezec");
         }
 

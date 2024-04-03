@@ -14,8 +14,9 @@ use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
 use IPP\Student\LabelManager;
 
-class JumpifeqInstruction extends FrameAwareInstruction {
-    
+class JumpifeqInstruction extends FrameAwareInstruction
+{
+
     private LabelManager $labelManager;
 
     private ExecutionContext $execContext;
@@ -27,11 +28,13 @@ class JumpifeqInstruction extends FrameAwareInstruction {
      * @throws ArgumentException
      * @throws ArgumentDoesntExistException
      */
-    protected function executeSpecific(): void {
+    protected function executeSpecific(): void
+    {
         [$labelName, $value1, $value2] = $this->getCheckedArgs();
 
-        if ($value1 == $value2) {
-            $targetPosition = $this->labelManager->findLabelPosition($labelName);
+        $targetPosition = $this->labelManager->findLabelPosition($labelName);
+
+        if ($value1 === $value2) {
             $this->execContext->instructionPointer = $targetPosition;
         }
     }
@@ -43,26 +46,24 @@ class JumpifeqInstruction extends FrameAwareInstruction {
      * @throws ArgumentDoesntExistException
      * @throws WrongOperandTypesException
      */
-    protected function getCheckedArgs(): array {
+    protected function getCheckedArgs(): array
+    {
         $this->checkArgsCount(3);
         $labelName = $this->getLabelName();
 
         $arg1 = $this->getArgValue($this->getArg(1));
         $arg2 = $this->getArgValue($this->getArg(2));
 
-        if ($arg1->getType() == DataType::Nil || $arg2->getType() == DataType::Nil) {
-            throw new ArgumentException();
-        }
 
-        if ($arg1->getType() != $arg2->getType()) {
+        if ($arg1->getType() != $arg2->getType() && ($arg1->getType() != DataType::Nil && $arg2->getType() != DataType::Nil)) {
             throw new ArgumentException();
-   
         }
 
         return [$labelName, $arg1->getValue(), $arg2->getValue()];
     }
 
-    protected function setDependency(ExecutionContext $execContext): void {
+    protected function setDependency(ExecutionContext $execContext): void
+    {
         parent::setDependency($execContext);
         $this->labelManager = $execContext->labelManager;
         $this->execContext = $execContext;

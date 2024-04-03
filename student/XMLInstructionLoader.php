@@ -7,6 +7,7 @@ use DOMElement;
 use DOMNodeList;
 use IPP\Core\Interface\InputReader;
 use IPP\Core\Interface\OutputWriter;
+use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Instructions\Instruction;
 use IPP\Student\Factory\ArgumentFactory;
 use IPP\Student\Factory\InstructionFactory;
@@ -45,16 +46,24 @@ class XMLInstructionLoader {
 
     /**
      * @return Argument[]
+     * @throws ArgumentException
      */
-    private function loadArgs(DOMNodeList $args) {
+    private function loadArgs(DOMNodeList $args): array {
         $argArray = [];
         foreach ($args as $arg) {
             if ($arg instanceof DOMElement && strpos($arg->nodeName, 'arg') === 0) {
+                $order = intval(substr($arg->nodeName, 3)); // Extrahuje pořadové číslo z názvu uzlu (např. "arg1" -> 1)
                 $argType = $arg->getAttribute('type');
                 $argValue = trim($arg->nodeValue);
-                $argArray[] = ArgumentFactory::createArg($argType, $argValue);
+
+                // Přidá objekt Argument společně s jeho pořadovým číslem do pole
+                $argArray[$order] = ArgumentFactory::createArg($argType, $argValue);
             }
         }
-        return $argArray;
+
+        // Seřadí pole podle klíčů (pořadových čísel), aby byly argumenty ve správném pořadí
+        ksort($argArray);
+
+        return array_values($argArray); // Vrátí pouze hodnoty pole, což jsou instance Argument
     }
 }

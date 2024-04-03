@@ -7,6 +7,7 @@ use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
 use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
+use IPP\Student\Exception\StringException;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
@@ -31,7 +32,7 @@ class Int2charInstruction extends FrameAwareInstruction {
         $symbArg = $this->getArgValue($this->getArg(1), DataType::Int);
 
         if ($symbArg->getValue() < 0 || $symbArg->getValue() > 255) {
-            throw new InvalidArgumentException("Hodnota mimo rozsah 0-255");
+            throw new StringException("Hodnota mimo rozsah 0-255");
         }
 
         return [$variable, $symbArg->getValue()];

@@ -15,13 +15,6 @@ class SetcharInstruction extends FrameAwareInstruction {
     public function executeSpecific(): void {
         [$variable, $position, $string] = $this->getCheckedArgs();
 
-        if ($variable->getType() != DataType::String) {
-            throw new WrongOperandTypesException("Prvni argument ocekavan string");
-        }
-
-        if ($position->getValue() >= $variable->getValue() || strlen($string->getValue() == 0)) {
-            throw new StringException("Indexace mimo retezec nebo druhy retezec je prazdny");
-        }
 
         $result = $variable->getValue();
 
@@ -41,11 +34,25 @@ class SetcharInstruction extends FrameAwareInstruction {
         }
 
         $variable = $this->getDestVar($args[0]);
-        
-        $arg1 = $this->getArgValue($args[1], DataType::Int);
-        $arg2 = $this->getArgValue($args[2], DataType::String);
 
-        return [$variable, $arg1, $arg2];
+        $position = $this->getArgValue($args[1], DataType::Int);
+
+        $string = $this->getArgValue($args[2], DataType::String);
+
+        if ($variable->getType() != DataType::String) {
+            throw new WrongOperandTypesException("Prvni argument ocekavan string");
+        }
+
+        if ($position->getValue() >= strlen($variable->getValue()) || strlen($string->getValue() == 0) || $position->getValue() < 0) {
+            throw new StringException("Indexace mimo retezec nebo druhy retezec je prazdny");
+        }
+
+        if (strlen($string->getValue()) == 0) {
+            throw new StringException("Treti argument SETCHAR nesmi byt prazdny retezec");
+        }
+
+
+        return [$variable, $position, $string];
     }
 
 }

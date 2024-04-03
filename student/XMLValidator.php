@@ -73,26 +73,85 @@ class XMLValidator {
      * @param DOMNodeList<DOMElement> $args Seznam uzlů k ověření
      */
     private function checkArgsElements(DOMNodeList $args): void {
-        $counter = 1;
+        $argOrder = [];
         foreach ($args as $arg) {
             if (!$arg instanceof DOMElement) {
                 continue;
             }
 
-            if ($arg->nodeName !== "arg{$counter}" || !$arg instanceof DOMElement) {
-                throw new UnexpectedXMLStructureException("Neocekavany nazev nebo typ elementu: '{$arg->nodeName}', ocekavany 'arg'");  
+            $order = intval(substr($arg->nodeName, 3));
+            if (array_key_exists($order, $argOrder)) {
+                throw new UnexpectedXMLStructureException("Duplicitní pořadí argumentu: '{$order}'");
             }
 
-            $counter++;
+            $argOrder[$order] = $arg;
+
             $attributes = $arg->attributes;
-
-            if ($attributes->length != 1) {
-                throw new UnexpectedXMLStructureException("Nespravny pocet atributu u elementu arg");
+            if ($attributes->length != 1 || $attributes->getNamedItem('type') == null) {
+                throw new UnexpectedXMLStructureException("Nesprávný počet atributů nebo chybějící atribut 'type' u arg");
             }
 
-            if ($attributes->getNamedItem('type') == null) {
-                throw new UnexpectedXMLStructureException("Nenalezen atribut 'type' u arg");
+            $this->checkArgValue($arg);
+        }
+
+        // Zkontroluje, zda jsou argumenty seřazeny a mají správné pořadí
+        ksort($argOrder);
+        $expectedOrder = 1;
+        foreach ($argOrder as $order => $arg) {
+            if ($order != $expectedOrder) {
+                throw new UnexpectedXMLStructureException("Neočekávané nebo chybějící pořadí argumentu. Očekáváno: '{$expectedOrder}', zjištěno: '{$order}'");
             }
+            $expectedOrder++;
         }
     }
+
+    private function checkArgValue(DOMElement $arg): void {
+        $type = $arg->getAttribute('type');
+        $value = trim($arg->nodeValue);
+
+        switch ($type) {
+            case 'int':
+                if (!is_numeric($value) || intval($value) != $value) {
+                    throw new UnexpectedXMLStructureException("Hodnota argumentu '$value' neodpovida typu 'int'.");
+                }
+                break;
+            case 'string':
+                $regex = '/(?:[^\s#\\\\]|\\\\[0-9]{3})*$/';
+                if (!preg_match($regex, $value)) {
+                    throw new UnexpectedXMLStructureException("Hodnota argumentu '$value' neodpovida typu 'string'.");
+                }
+                break;
+            case 'bool':
+                if ($value !== 'true' && $value !== 'false') {
+                    throw new UnexpectedXMLStructureException("Hodnota argumentu '$value' neodpovida typu 'bool'.");
+                }
+                break;
+            case 'var':
+                $regex = '/(LF|TF|GF)@[A-Za-z_$&%*!?-][A-Za-z0-9_$&%*!?-]*$/';
+                if (!preg_match($regex, $value)) {
+                    throw new UnexpectedXMLStructureException("Hodnota argumentu '$value' neodpovida typu 'var'.");
+                }
+                break;
+            case 'nil':
+                if ($value !== 'nil') {
+                    throw new UnexpectedXMLStructureException("Hodnota argumentu '$value' neodpovida typu 'var'.");
+                }
+                break;
+            case 'label':
+                $regex = '/[A-Za-z_$&%*!?-][A-Za-z0-9_$&%*!?-]*$/';
+                if (!preg_match($regex, $value)) {
+                    throw new UnexpectedXMLStructureException("Hodnota argumentu '$value' neodpovida typu 'var'.");
+                }
+                break;
+            case 'type':
+                $regex = '/string|int|bool|nil/';
+                if (!preg_match($regex, $value)) {
+                    throw new UnexpectedXMLStructureException("Hodnota argumentu '$value' neodpovida typu 'var'.");
+                }
+                break;
+            default:
+                throw new UnexpectedXMLStructureException("Neznámý typ argumentu '$type'.");
+        }
+    }
+
 }

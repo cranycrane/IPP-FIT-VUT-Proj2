@@ -14,8 +14,8 @@ class InstructionMap {
         'PUSHFRAME' => 'IPP\Student\Instructions\Memory\PushFrameInstruction',
         'POPFRAME' => 'IPP\Student\Instructions\Memory\PopFrameInstruction',
         'DEFVAR' => 'IPP\Student\Instructions\Memory\DefvarInstruction',
-        'CALL' => 'IPP\Student\Instructions\Function\CallInstruction',
-        'RETURN' => 'IPP\Student\Instructions\Function\ReturnInstruction',
+        'CALL' => 'IPP\Student\Instructions\FlowControl\CallInstruction',
+        'RETURN' => 'IPP\Student\Instructions\FlowControl\ReturnInstruction',
         'PUSHS' => 'IPP\Student\Instructions\Stack\PushsInstruction',
         'POPS' => 'IPP\Student\Instructions\Stack\PopsInstruction',
         'ADD' => 'IPP\Student\Instructions\Arithmetic\AddInstruction',
@@ -36,12 +36,13 @@ class InstructionMap {
         'STRLEN' => 'IPP\Student\Instructions\String\StrlenInstruction',
         'GETCHAR' => 'IPP\Student\Instructions\String\GetcharInstruction',
         'SETCHAR' => 'IPP\Student\Instructions\String\SetcharInstruction',
-        'TYPE' => 'IPP\Student\Instructions\Type\TypeInstruction',
+        'TYPE' => 'IPP\Student\Instructions\TypeInstruction',
         'LABEL' => 'IPP\Student\Instructions\FlowControl\LabelInstruction',
         'JUMP' => 'IPP\Student\Instructions\FlowControl\JumpInstruction',
         'JUMPIFEQ' => 'IPP\Student\Instructions\FlowControl\JumpifeqInstruction',
         'JUMPIFNEQ' => 'IPP\Student\Instructions\FlowControl\JumpifneqInstruction',
         'EXIT' => 'IPP\Student\Instructions\FlowControl\ExitInstruction',
+        'DPRINT' => 'IPP\Student\Instructions\IO\DprintInstruction',
     ];
 
     public static function getClassNameForOpcode(string $opcode): string {

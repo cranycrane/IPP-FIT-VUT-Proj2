@@ -8,6 +8,7 @@ use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
 use IPP\Student\DataType;
 use IPP\Student\Exception\ArgumentException;
+use IPP\Student\Exception\StringException;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
@@ -18,7 +19,7 @@ class Stri2intInstruction extends FrameAwareInstruction {
         [$variable, $stringValue, $position] = $this->getCheckedArgs();
 
         if ($position < 0 || $position >= strlen($stringValue)) {
-            throw new InvalidArgumentException("Index mimo rozsah řetězce");
+            throw new StringException("Index mimo rozsah řetězce");
         }
 
         $char = mb_substr($stringValue, $position, 1, 'UTF-8');

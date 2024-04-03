@@ -71,6 +71,9 @@ class FrameManager {
             case 'GF':
                 return $this->globalFrame;
             case 'LF':
+                if (!$this->localFrameStack->top()) {
+                    throw new FrameNotInitializedException("No pushed local frame");
+                }
                 return $this->localFrameStack->top();
             case 'TF':
                 if (!isset($this->tempFrame)) {

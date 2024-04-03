@@ -22,6 +22,7 @@ class DefvarInstruction extends FrameAwareInstruction {
      * @return array{VarArgument}
      */
     public function getCheckedArgs(): array {
+        $this->checkArgsCount(1);
         $varArg = $this->getArg(0);
 
         if (!$varArg instanceof VarArgument) {

@@ -21,6 +21,7 @@ class ConstArgument extends Argument {
         if ($this->dataType == DataType::Int && is_numeric($this->value)) {
             return (int) $this->value;
         }
+
         return $this->value;
     }
     

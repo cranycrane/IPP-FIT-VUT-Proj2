@@ -16,8 +16,12 @@ use IPP\Student\Exception\StringException;
 class ArgumentFactory {
     
     public static function createArg(string $type, string $value): Argument {
-        if (\in_array($type, ['int', 'nil', 'bool', 'float'])) {
+        if (\in_array($type, ['int', 'nil', 'float'])) {
             return new ConstArgument(DataType::from($type), $value);
+        }
+        else if ($type == 'bool') {
+            $boolValue = strtolower($value) === 'true';
+            return new ConstArgument(DataType::Bool, $boolValue);
         }
         else if ($type == 'string') {
             return new ConstArgument(DataType::String, self::convertEscapeSeq($value));
