@@ -4,13 +4,11 @@ namespace IPP\Student\Instructions\IO;
 
 use ArgumentCountError;
 use IPP\Core\Interface\OutputWriter;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\ExecutionContext;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\TypedValue;
+use IPP\Student\Values\TypedValue;
 
 class WriteInstruction extends FrameAwareInstruction {
 

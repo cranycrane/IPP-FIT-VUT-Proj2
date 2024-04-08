@@ -2,9 +2,9 @@
 
 namespace IPP\Student\Instructions\Memory;
 
-use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\TypedValue;
+use IPP\Student\Values\TypedValue;
+use IPP\Student\Values\Variable;
 
 class MoveInstruction extends FrameAwareInstruction {
     

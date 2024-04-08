@@ -3,7 +3,7 @@
 namespace IPP\Student\Instructions\Stack;
 
 use ArgumentCountError;
-use IPP\Student\Variable;
+use IPP\Student\Values\Variable;
 
 class PopsInstruction extends StackInstruction {
 

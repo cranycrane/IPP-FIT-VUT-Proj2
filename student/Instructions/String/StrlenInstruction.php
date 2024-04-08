@@ -3,10 +3,10 @@
 namespace IPP\Student\Instructions\String;
 
 use ArgumentCountError;
-use IPP\Student\TypedValue;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\Variable;
+use IPP\Student\Values\TypedValue;
+use IPP\Student\Values\Variable;
 
 class StrlenInstruction extends FrameAwareInstruction {
 

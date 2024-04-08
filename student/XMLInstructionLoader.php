@@ -28,23 +28,21 @@ class XMLInstructionLoader {
     public function loadInstructions() {
         $instructions = [];
     
-        // Načtení instrukcí do pole
         foreach ($this->domDocument->getElementsByTagName('instruction') as $instruction) {
-            $order = (int) $instruction->getAttribute('order'); // Převedení na int pro správné řazení
+            $order = (int) $instruction->getAttribute('order');
             $opcode = $instruction->getAttribute('opcode');
             
             $args = $this->loadArgs($instruction->childNodes);
 
             $instructions[$order] = $this->instructionFactory->createInstruction($opcode, $order, $args);
         }
-    
-        // Setřídění instrukcí podle klíče 'order'
+
         ksort($instructions);
         return $instructions;
-        //return array_values($instructions); // Vrátí setříděné instrukce s resetovanými indexy
     }    
 
     /**
+     * @param DOMNodeList<DOMElement> $args
      * @return Argument[]
      * @throws ArgumentException
      */
@@ -52,18 +50,16 @@ class XMLInstructionLoader {
         $argArray = [];
         foreach ($args as $arg) {
             if ($arg instanceof DOMElement && strpos($arg->nodeName, 'arg') === 0) {
-                $order = intval(substr($arg->nodeName, 3)); // Extrahuje pořadové číslo z názvu uzlu (např. "arg1" -> 1)
+                $order = intval(substr($arg->nodeName, 3));
                 $argType = $arg->getAttribute('type');
                 $argValue = trim($arg->nodeValue);
 
-                // Přidá objekt Argument společně s jeho pořadovým číslem do pole
                 $argArray[$order] = ArgumentFactory::createArg($argType, $argValue);
             }
         }
 
-        // Seřadí pole podle klíčů (pořadových čísel), aby byly argumenty ve správném pořadí
         ksort($argArray);
 
-        return array_values($argArray); // Vrátí pouze hodnoty pole, což jsou instance Argument
+        return array_values($argArray);
     }
 }

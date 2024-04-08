@@ -2,7 +2,7 @@
 
 namespace IPP\Student\Instructions\Boolean;
 
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 
 class AndInstruction extends BoolInstruction {
 

@@ -3,16 +3,10 @@
 namespace IPP\Student\Instructions\Conversion;
 
 use ArgumentCountError;
-use InvalidArgumentException;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
-use IPP\Student\Exception\ArgumentException;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\StringException;
-use IPP\Student\Exception\UnexpectedArgumentException;
-use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\Variable;
+use IPP\Student\Values\Variable;
 
 class Stri2intInstruction extends FrameAwareInstruction {
     public function executeSpecific(): void {

@@ -5,15 +5,14 @@ namespace IPP\Student\Instructions;
 use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Exception\WrongOperandTypesException;
 use IPP\Student\ExecutionContext;
-use IPP\Student\FrameManager;
 use IPP\Student\Interface\FrameAccess;
-use IPP\Student\TypedValue;
-use IPP\Student\Variable;
-use PhpParser\Node\Expr\Instanceof_;
+use IPP\Student\Managers\FrameManager;
+use IPP\Student\Values\TypedValue;
+use IPP\Student\Values\Variable;
 
 abstract class FrameAwareInstruction extends Instruction {
     protected FrameManager $frameManager;

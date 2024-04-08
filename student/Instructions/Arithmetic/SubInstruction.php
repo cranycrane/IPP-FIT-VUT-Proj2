@@ -2,12 +2,7 @@
 
 namespace IPP\Student\Instructions\Arithmetic;
 
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
-use IPP\Student\Exception\UnexpectedArgumentException;
-use IPP\Student\FrameManager;
-use IPP\Student\Variable;
+use IPP\Student\Enums\DataType;
 
 class SubInstruction extends ArithmeticInstruction {
 

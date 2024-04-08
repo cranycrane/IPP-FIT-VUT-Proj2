@@ -7,9 +7,7 @@ use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\LabelArgument;
 use IPP\Student\Arguments\TypeArgument;
 use IPP\Student\Arguments\VarArgument;
-use IPP\Student\Exception\OpcodeNotFoundException;
-use IPP\Student\Exception\UnexpectedArgumentException;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\ArgumentException;
 use IPP\Student\Exception\StringException;
 
@@ -42,7 +40,7 @@ class ArgumentFactory {
 
     protected static function convertEscapeSeq(string $string): string {
         $convertedStr = preg_replace_callback('/\\\\(\d{1,3})/', function ($matches) {
-            $asciiValue = $matches[1];
+            $asciiValue = (int)$matches[1];
             if ($asciiValue >= 0 && $asciiValue <= 999) {
                 return chr($asciiValue);
             }

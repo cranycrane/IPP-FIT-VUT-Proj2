@@ -2,17 +2,12 @@
 
 namespace IPP\Student\Instructions\FlowControl;
 
-use IPP\Student\Arguments\LabelArgument;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\ArgumentDoesntExistException;
 use IPP\Student\Exception\ArgumentException;
-use IPP\Student\Exception\UndefinedLabelException;
-use IPP\Student\Exception\UnexpectedArgumentException;
-use IPP\Student\Exception\WrongOperandTypesException;
 use IPP\Student\ExecutionContext;
-use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\LabelManager;
+use IPP\Student\Managers\LabelManager;
 
 class JumpifeqInstruction extends FrameAwareInstruction
 {
@@ -21,13 +16,7 @@ class JumpifeqInstruction extends FrameAwareInstruction
 
     private ExecutionContext $execContext;
 
-    /**
-     * @throws UndefinedLabelException
-     * @throws WrongOperandTypesException
-     * @throws UnexpectedArgumentException
-     * @throws ArgumentException
-     * @throws ArgumentDoesntExistException
-     */
+
     protected function executeSpecific(): void
     {
         [$labelName, $value1, $value2] = $this->getCheckedArgs();
@@ -41,10 +30,6 @@ class JumpifeqInstruction extends FrameAwareInstruction
 
     /**
      * @return array{string, mixed, mixed}
-     * @throws ArgumentException
-     * @throws UnexpectedArgumentException
-     * @throws ArgumentDoesntExistException
-     * @throws WrongOperandTypesException
      */
     protected function getCheckedArgs(): array
     {

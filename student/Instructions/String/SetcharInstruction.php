@@ -3,12 +3,12 @@
 namespace IPP\Student\Instructions\String;
 
 use ArgumentCountError;
-use IPP\Student\TypedValue;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\StringException;
 use IPP\Student\Exception\WrongOperandTypesException;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\Variable;
+use IPP\Student\Values\TypedValue;
+use IPP\Student\Values\Variable;
 
 class SetcharInstruction extends FrameAwareInstruction {
 
@@ -43,7 +43,7 @@ class SetcharInstruction extends FrameAwareInstruction {
             throw new WrongOperandTypesException("Prvni argument ocekavan string");
         }
 
-        if ($position->getValue() >= strlen($variable->getValue()) || strlen($string->getValue() == 0) || $position->getValue() < 0) {
+        if ($position->getValue() >= strlen($variable->getValue()) || $position->getValue() < 0) {
             throw new StringException("Indexace mimo retezec nebo druhy retezec je prazdny");
         }
 

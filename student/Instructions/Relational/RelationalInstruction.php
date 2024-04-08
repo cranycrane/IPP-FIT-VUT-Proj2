@@ -2,16 +2,10 @@
 
 namespace IPP\Student\Instructions\Relational;
 
-use ArgumentCountError;
-use InvalidArgumentException;
-use IPP\Student\Arguments\Argument;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
-use IPP\Student\Exception\ArgumentException;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\WrongOperandTypesException;
-use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
+use IPP\Student\Values\Variable;
 
 abstract class RelationalInstruction extends FrameAwareInstruction {
 
@@ -35,26 +29,9 @@ abstract class RelationalInstruction extends FrameAwareInstruction {
         }
 
         if ($symbArg1->getType() == DataType::Nil || $symbArg2->getType() == DataType::Nil) {
-            throw new WrongOperandTypesException("GT argument nesmi byt typu nil");
+            throw new WrongOperandTypesException("Datove typy operandu se lisi");
         }
 
         return [$variable, $symbArg1->getValue(), $symbArg2->getValue()];
     }
-
-    private function getValue(Argument $argument): mixed {
-        if ($argument instanceof VarArgument) {
-            $variable = $this->frameManager->getVariable($argument->getFrameName(), $argument->getName());
-            $varValue = $variable->getValue();
-            return $varValue;
-        }
-
-        if ($argument instanceof ConstArgument) {
-            if ($argument->getDataType() == DataType::Nil) {
-                throw new ArgumentException("Argument nesmi byt nil");
-            }
-            return $argument->getValue();
-        } else {
-            throw new ArgumentException("Argument byt promenna nebo literal");
-        }
-    }    
 }

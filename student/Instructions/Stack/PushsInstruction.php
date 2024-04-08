@@ -3,10 +3,9 @@
 namespace IPP\Student\Instructions\Stack;
 
 use ArgumentCountError;
-use InvalidArgumentException;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\ArgumentException;
-use IPP\Student\TypedValue;
+use IPP\Student\Values\TypedValue;
 
 class PushsInstruction extends StackInstruction {
 

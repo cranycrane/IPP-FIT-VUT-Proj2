@@ -2,15 +2,9 @@
 
 namespace IPP\Student\Instructions\FlowControl;
 
-use IPP\Student\Arguments\LabelArgument;
-use IPP\Student\DataType;
-use IPP\Student\Exception\ArgumentException;
-use IPP\Student\Exception\UnexpectedArgumentException;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\WrongExitValueException;
-use IPP\Student\ExecutionContext;
-use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\LabelManager;
 
 class ExitInstruction extends FrameAwareInstruction {
     

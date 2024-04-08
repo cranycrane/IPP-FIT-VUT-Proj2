@@ -94,7 +94,6 @@ class XMLValidator {
             $this->checkArgValue($arg);
         }
 
-        // Zkontroluje, zda jsou argumenty seřazeny a mají správné pořadí
         ksort($argOrder);
         $expectedOrder = 1;
         foreach ($argOrder as $order => $arg) {

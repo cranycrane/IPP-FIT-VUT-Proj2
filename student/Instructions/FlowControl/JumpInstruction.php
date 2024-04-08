@@ -2,13 +2,11 @@
 
 namespace IPP\Student\Instructions\FlowControl;
 
-use IPP\Student\Arguments\LabelArgument;
 use IPP\Student\Exception\UndefinedLabelException;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\ExecutionContext;
-use IPP\Student\FrameManager;
 use IPP\Student\Instructions\Instruction;
-use IPP\Student\LabelManager;
+use IPP\Student\Managers\LabelManager;
 
 class JumpInstruction extends Instruction {
     

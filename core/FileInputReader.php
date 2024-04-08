@@ -67,6 +67,5 @@ class FileInputReader implements InputReader
             FILTER_VALIDATE_FLOAT, 
             FILTER_NULL_ON_FAILURE
         );
-        throw new NotImplementedException;
     }
 }

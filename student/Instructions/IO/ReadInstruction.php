@@ -3,12 +3,8 @@
 namespace IPP\Student\Instructions\IO;
 
 use IPP\Core\Interface\InputReader;
-use IPP\Core\Interface\OutputWriter;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\LabelArgument;
 use IPP\Student\Arguments\TypeArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\UnexpectedArgumentException;
 use IPP\Student\ExecutionContext;
 use IPP\Student\Instructions\FrameAwareInstruction;

@@ -3,15 +3,10 @@
 namespace IPP\Student\Instructions\String;
 
 use ArgumentCountError;
-use InvalidArgumentException;
-use IPP\Student\Arguments\ConstArgument;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\StringException;
-use IPP\Student\Exception\UnexpectedArgumentException;
-use IPP\Student\FrameManager;
 use IPP\Student\Instructions\FrameAwareInstruction;
-use IPP\Student\Variable;
+use IPP\Student\Values\Variable;
 
 class GetcharInstruction extends FrameAwareInstruction {
 

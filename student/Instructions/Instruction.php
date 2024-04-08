@@ -2,9 +2,7 @@
 
 namespace IPP\Student\Instructions;
 
-use ArgumentCountError;
 use IPP\Student\Exception\ArgumentCountException;
-use IPP\Student\Exception\ArgumentDoesntExistException;
 use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\LabelArgument;
 use IPP\Student\Arguments\VarArgument;
@@ -50,7 +48,7 @@ abstract class Instruction {
             return $this->args[$index];
         }
 
-        throw new ArgumentDoesntExistException("Argument na indexu " . $index . "neexistuje");
+        throw new ArgumentCountException("Argument na indexu " . $index . "neexistuje");
     }
 
     /**

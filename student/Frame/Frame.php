@@ -2,11 +2,10 @@
 
 namespace IPP\Student\Frame;
 
-use IPP\Student\DataType;
-use IPP\Student\Exception\UndefinedVarException;
+
 use IPP\Student\Exception\VariableAlreadyDeclaredException;
 use IPP\Student\Exception\VariableNotFoundException;
-use IPP\Student\Variable;
+use IPP\Student\Values\Variable;
 
 abstract class Frame {
     /**

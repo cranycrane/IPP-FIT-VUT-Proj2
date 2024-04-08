@@ -2,14 +2,13 @@
 
 namespace IPP\Student\Instructions\Arithmetic;
 
-use ArgumentCountError;
+use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
-use IPP\Student\Arguments\Argument;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\ArgumentException;
-use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
+use IPP\Student\Values\Variable;
 
 abstract class ArithmeticInstruction extends FrameAwareInstruction {
 
@@ -19,19 +18,17 @@ abstract class ArithmeticInstruction extends FrameAwareInstruction {
      * @return array{Variable,int,int}
      */
     protected function getCheckedArgs(): array {
+        $this->checkArgsCount(3);
+
         $args = $this->getArgs();
 
         $varArg = $args[0];
 
-        if (count($args) != 3) {
-            throw new ArgumentCountError("Nesprávný počet argumentů");
-        }
         if (!$varArg instanceof VarArgument) {
             throw new ArgumentException("První argument musí být proměnná");
         }
-        
-        $variable = $this->frameManager->getVariable($varArg->getFrameName(), $varArg->getName());
 
+        $variable = $this->getDestVar($varArg);
         $value2 = $this->getValue($args[1]);
         $value3 = $this->getValue($args[2]);
 

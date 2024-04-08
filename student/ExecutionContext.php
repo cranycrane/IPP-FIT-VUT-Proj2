@@ -4,6 +4,10 @@ namespace IPP\Student;
 
 use IPP\Core\Interface\InputReader;
 use IPP\Core\Interface\OutputWriter;
+use IPP\Student\Managers\FrameManager;
+use IPP\Student\Managers\LabelManager;
+use IPP\Student\Stacks\CallStack;
+use IPP\Student\Stacks\DataStack;
 
 class ExecutionContext {
 

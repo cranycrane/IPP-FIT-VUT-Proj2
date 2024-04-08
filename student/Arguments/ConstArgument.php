@@ -2,16 +2,14 @@
 
 namespace IPP\Student\Arguments;
 
-use IPP\Student\Arguments\Argument;
-use IPP\Student\DataType;
-use IPP\Student\Exception\ArgumentException;
+use IPP\Student\Enums\DataType;
 
 class ConstArgument extends Argument {
     private DataType $dataType;
 
     private mixed $value;
 
-    public function __construct(DataType $dataType, string $value) {
+    public function __construct(DataType $dataType, mixed $value) {
         $this->dataType = $dataType;
         $this->value = $value;
         parent::__construct();

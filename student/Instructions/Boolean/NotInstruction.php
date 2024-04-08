@@ -3,8 +3,7 @@
 namespace IPP\Student\Instructions\Boolean;
 
 use ArgumentCountError;
-use IPP\Student\Variable;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 
 class NotInstruction extends BoolInstruction {
 

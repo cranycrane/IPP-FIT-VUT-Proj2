@@ -2,7 +2,7 @@
 
 namespace IPP\Student\Instructions\Relational;
 
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\WrongOperandTypesException;
 
 class EqInstruction extends RelationalInstruction {

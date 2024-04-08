@@ -3,16 +3,13 @@
 namespace IPP\Student\Instructions\Boolean;
 
 use ArgumentCountError;
-use InvalidArgumentException;
 use IPP\Student\Arguments\Argument;
 use IPP\Student\Arguments\ConstArgument;
 use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\ArgumentException;
-use IPP\Student\Exception\WrongOperandTypesException;
-use IPP\Student\FrameManager;
-use IPP\Student\Variable;
 use IPP\Student\Instructions\FrameAwareInstruction;
+use IPP\Student\Values\Variable;
 
 abstract class BoolInstruction extends FrameAwareInstruction {
 

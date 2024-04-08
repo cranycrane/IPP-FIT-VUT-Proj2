@@ -2,10 +2,6 @@
 
 namespace IPP\Student\Arguments;
 
-use IPP\Student\Arguments\Argument;
-use IPP\Student\DataType;
-use IPP\Student\Exception\ArgumentException;
-
 class LabelArgument extends Argument {
     private string $value;
 

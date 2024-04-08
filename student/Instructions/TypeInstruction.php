@@ -3,13 +3,9 @@
 namespace IPP\Student\Instructions;
 
 use ArgumentCountError;
-use IPP\Student\Arguments\VarArgument;
-use IPP\Student\DataType;
-use IPP\Student\Exception\UnexpectedArgumentException;
+use IPP\Student\Enums\DataType;
 use IPP\Student\Exception\UninitializedVariableException;
-use IPP\Student\FrameManager;
-use IPP\Student\TypedValue;
-use IPP\Student\Variable;
+use IPP\Student\Values\Variable;
 
 class TypeInstruction extends FrameAwareInstruction
 {
