@@ -1,5 +1,35 @@
-.IPPcode24
+.IFJcode23
+# Inicializace
+DEFVAR GF@n
+MOVE GF@n int@5   # n-té číslo Fibonacciho posloupnosti k výpočtu
 
-DEFVAR GF@a
+CREATEFRAME
+PUSHFRAME
+DEFVAR LF@n
+DEFVAR LF@result
 
-GT GF@a bool@true string@false
+# Výpočet Fibonacciho čísla pomocí "rekurze"
+CALL fib
+
+# Výpis výsledku
+WRITE GF@fibResult
+EXIT int@0
+
+# Funkce pro výpočet Fibonacciho čísla
+LABEL fib
+MOVE LF@n GF@n
+
+JUMPIFEQ fib_basecase LF@n int@2   # Base case pro n <= 2
+SUB GF@n GF@n int@1
+CALL fib
+MOVE LF@result GF@fibResult
+SUB GF@n GF@n int@1
+CALL fib
+ADD GF@fibResult GF@fibResult LF@result
+RETURN
+
+# Base case
+LABEL fib_basecase
+DEFVAR GF@fibResult
+MOVE GF@fibResult int@1
+RETURN
